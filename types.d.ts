@@ -1,4 +1,5 @@
 type Habit = {
-    name: string,
+    habit_id: number
+    name: string
     day: string
 }

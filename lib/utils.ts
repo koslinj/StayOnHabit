@@ -12,31 +12,33 @@ export function getPast10Days(): Date[] {
 }
 
 export function createFinalArray(activityArray: Habit[], pastDatesArray: Date[]) {
-    const finalMap = new Map<string, {name: string, days: boolean[]}>();
-    const names = new Set<string>();
+    const finalMap = new Map<string, { habit_id: number, name: string, days: boolean[] }>();
+    const habits = new Set<{ habit_id: number, name: string }>();
     for (const activity of activityArray) {
-      names.add(activity.name);
+        habits.add({ habit_id: activity.habit_id, name: activity.name });
     }
-    for (const name of Array.from(names)) {
+    for (const habit of Array.from(habits)) {
         const activityObj: {
+            habit_id: number
             name: string
             days: boolean[]
         } = {
-            name: name,
+            habit_id: habit.habit_id,
+            name: habit.name,
             days: []
         };
 
         for (const date of pastDatesArray) {
             const hasActivity = activityArray.some(
-                entry => entry.name === name && new Date(entry.day).toDateString() === new Date(date).toDateString()
+                entry => entry.name === habit.name && new Date(entry.day).toDateString() === new Date(date).toDateString()
             );
             activityObj.days.push(hasActivity);
         }
 
-        finalMap.set(activityObj.name, {name: activityObj.name, days: activityObj.days} );
+        finalMap.set(activityObj.name, { habit_id: activityObj.habit_id, name: activityObj.name, days: activityObj.days });
     }
     const finalArray = Array.from(finalMap.values())
-    for (let item of finalArray){
+    for (let item of finalArray) {
         item.days.reverse()
     }
     return finalArray
