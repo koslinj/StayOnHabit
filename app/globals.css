@@ -4,6 +4,6 @@
 
 @layer base {
     body {
-        @apply min-h-screen bg-indigo-950
+        @apply min-h-screen bg-[#0C0C30]
     }
 }
