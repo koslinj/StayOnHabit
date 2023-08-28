@@ -43,3 +43,17 @@ export function createFinalArray(activityArray: Habit[], pastDatesArray: Date[])
     }
     return finalArray
 }
+
+export function datesToString(data: boolean[]){
+    const days: string[] = []
+    const today = new Date();
+    for (let i = 0; i < data.length; i++) {
+        const date = new Date(today);
+        date.setDate(today.getDate() - i);
+        console.log()
+        const dateString = date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2,'0') + '-' + String(date.getDate()).padStart(2,'0')
+        days.unshift(dateString)
+    }
+    
+    return days
+}

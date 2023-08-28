@@ -7,10 +7,9 @@ type Props = {
     day: string
     state: boolean
     habit_id: number
-    user_id: string
 }
 
-export default async function Square({ day, state, habit_id, user_id }: Props) {
+export default async function Square({ day, state, habit_id }: Props) {
     const router = useRouter()
     async function handleRed(){
         await addDay(habit_id, day)
