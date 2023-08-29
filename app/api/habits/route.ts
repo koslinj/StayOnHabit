@@ -6,10 +6,9 @@ export async function POST(request: Request) {
 
     try {
         if (!name) throw new Error('Name is required');
-        await sql`INSERT INTO habits (name) VALUES (${name});`;
+        const res = await sql`INSERT INTO habits (name) VALUES (${name}) RETURNING habit_id;`;
+        return NextResponse.json(res.rows[0], { status: 200 });
     } catch (error) {
         return NextResponse.json({ error }, { status: 500 });
     }
-
-    return NextResponse.json({ message: 'Success' }, { status: 200 });
 }
