@@ -14,7 +14,7 @@ export default function SquaresList({ habit_id, name, data }: Props) {
         <div className="flex my-2">
             <p className="w-32 break-words">{name}</p>
             {data.map((value, index) => (
-                <Square day={days[index]} state={value} habit_id={habit_id} />
+                <Square key={index} day={days[index]} state={value} habit_id={habit_id} />
             ))}
         </div>
     )
