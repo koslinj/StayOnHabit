@@ -1,7 +1,7 @@
 
 export async function addHabit(name: string) {
     try {
-        const res = await fetch(process.env.BASE_URL + '/api/habits', {
+        const res = await fetch('/api/habits', {
             method: 'POST',
             body: JSON.stringify({
                 name
