@@ -1,24 +1,36 @@
-import getAllHabits from "@/lib/database/getAllHabits"
-import SquaresList from "../components/SquaresList";
-import { createFinalArray, getPast10Days } from "@/lib/utils";
 import { getServerSession } from "next-auth/next";
 import { options } from "../api/auth/[...nextauth]/options";
 import NewHabitButton from "../components/NewHabitButton";
+import DaysSwiper from "../components/swiper/DaysSwiper";
+import getAllHabitsForUser from "@/lib/database/getAllHabitsForUser";
+import getAllDays from "@/lib/database/getAllDays";
 
 export default async function Dashboard() {
     const session = await getServerSession(options)
-    const data = await getAllHabits(session?.user?.email as string)
-    const rows = data?.rows as Habit[]
 
-    const past10DaysArray = getPast10Days();
-    const finalArray = createFinalArray(rows, past10DaysArray).sort((a, b) => a.habit_id - b.habit_id);
+    const habitsData = await getAllHabitsForUser(session?.user?.email as string)
+    if(!habitsData){
+        throw new Error('fetching habits failed!')
+    }
+    const habits = habitsData.rows as Habit[]
+
+    const allDaysData = await getAllDays(session?.user?.email as string)
+    if(!allDaysData){
+        throw new Error('fetching all days failed!')
+    }
+    const allDays = allDaysData.rows as DaysRow[]
+
+    const uniqueHabits = habits.filter((value, index) => {
+        const _value = JSON.stringify(value);
+        return index === habits.findIndex(obj => {
+            return JSON.stringify(obj) === _value;
+        });
+    }) 
 
     return (
         <main className="bg-orange-300 px-4">
             <h1 className="text-xl font-bold mb-6">Dashboard</h1>
-            {finalArray && finalArray.map((item, index: number) => (
-                <SquaresList key={index} habit_id={item.habit_id} name={item.name} data={item.days} />
-            ))}
+            <DaysSwiper allDays={allDays} habits={uniqueHabits} />
             <NewHabitButton />
         </main>
     )

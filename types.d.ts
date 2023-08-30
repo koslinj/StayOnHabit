@@ -1,5 +1,11 @@
 type Habit = {
     habit_id: number
     name: string
-    day: string
+}
+
+type DaysRow = {
+    day_id: number
+    habit_id: number
+    day: Date
+    user_id: string
 }

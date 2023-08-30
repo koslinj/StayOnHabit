@@ -1,52 +1,20 @@
-export function getPast10Days(): Date[] {
+export function getPast60Days(): Date[] {
     const today = new Date();
-    const past10Days = [];
+    today.setDate(today.getDate() + 1);
+    const past60Days = [];
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 60; i++) {
         const date = new Date(today);
+        date.setHours(0,0,0,0);
+        past60Days.unshift(date);
         date.setDate(today.getDate() - i);
-        past10Days.push(date);
     }
 
-    return past10Days;
+    return past60Days;
 }
 
-export function createFinalArray(activityArray: Habit[], pastDatesArray: Date[]) {
-    const finalMap = new Map<string, { habit_id: number, name: string, days: boolean[] }>();
-    const habits = new Set<{ habit_id: number, name: string }>();
-    for (const activity of activityArray) {
-        habits.add({ habit_id: activity.habit_id, name: activity.name });
-    }
-    for (const habit of Array.from(habits)) {
-        const activityObj: {
-            habit_id: number
-            name: string
-            days: boolean[]
-        } = {
-            habit_id: habit.habit_id,
-            name: habit.name,
-            days: []
-        };
-
-        for (const date of pastDatesArray) {
-            const hasActivity = activityArray.some(
-                entry => entry.name === habit.name && new Date(entry.day).toDateString() === new Date(date).toDateString()
-            );
-            activityObj.days.push(hasActivity);
-        }
-
-        finalMap.set(activityObj.name, { habit_id: activityObj.habit_id, name: activityObj.name, days: activityObj.days });
-    }
-    const finalArray = Array.from(finalMap.values())
-    for (let item of finalArray) {
-        item.days.reverse()
-    }
-    return finalArray
-}
-
-export function datesToString(data: boolean[]){
+export function datesToString(data: boolean[], today: Date){
     const days: string[] = []
-    const today = new Date();
     for (let i = 0; i < data.length; i++) {
         const date = new Date(today);
         date.setDate(today.getDate() - i);
