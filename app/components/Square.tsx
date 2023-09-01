@@ -8,9 +8,10 @@ type Props = {
     day: string
     state: boolean
     habit_id: number
+    first: boolean
 }
 
-export default function Square({ day, state, habit_id }: Props) {
+export default function Square({ day, state, habit_id, first }: Props) {
     const [optimisticState, setoptimisticState] = useOptimistic(state)
     async function handleRed() {
         setoptimisticState(true)
@@ -23,7 +24,11 @@ export default function Square({ day, state, habit_id }: Props) {
 
     return (
         <div className="flex flex-col justify-center items-center">
-            <p>{day.slice(-2)}</p>
+            {first && <div>
+                <p className="leading-4 font-light text-black/70 border-b-2 border-black">{day.slice(5, 7)}</p>
+                <p className="leading-5 text-lg font-semibold">{day.slice(-2)}</p>
+            </div>
+            }
             {!optimisticState ?
                 <form action={handleRed}>
                     <button

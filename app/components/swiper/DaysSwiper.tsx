@@ -21,7 +21,7 @@ export default function DaysSwiper({ allDays, habits }: Props) {
 
     return (
         <div className="flex mt-10">
-            <div className="lg:min-w-fit flex flex-col justify-around items-center text-lg lg:text-2xl mr-4">
+            <div className="min-w-fit hidden md:flex flex-col justify-around items-center text-lg lg:text-2xl mr-2">
                 {habits.map((item, index) => (
                     <p key={index}>
                         {item.name}
@@ -29,20 +29,19 @@ export default function DaysSwiper({ allDays, habits }: Props) {
                 ))}
             </div>
             <Swiper
+                centeredSlides={true}
                 slidesPerView={1}
                 //initialSlide={14}
-                slidesOffsetAfter={30}
-                slidesOffsetBefore={30}
                 breakpoints={
                     {
                         600: {
                             slidesPerView: 2
                         },
-                        900: {
+                        920: {
                             slidesPerView: 3
                         },
                         1200: {
-                            slidesPerView: 4
+                            slidesPerView: 4,
                         },
                         1450: {
                             slidesPerView: 5
@@ -58,7 +57,10 @@ export default function DaysSwiper({ allDays, habits }: Props) {
                     <SwiperSlide key={index} >
                         <div className="flex flex-col justify-center items-center">
                             {habits.map((habit, i) => (
-                                <SquaresList key={i} days={item} allDays={allDays} habit_id={habit.habit_id} />
+                                <>
+                                    <SquaresList key={i} days={item} allDays={allDays} habit_id={habit.habit_id} first={i===0 ? true : false} />
+                                    <p className="block md:hidden italic font-light text-black/70">{habit.name}</p>
+                                </>
                             ))}
                         </div>
                     </SwiperSlide>
