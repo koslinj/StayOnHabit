@@ -1,7 +1,5 @@
 import Navbar from "../components/Navbar"
 
-export const revalidate = 0
-
 export default function DashboardLayout({
     children,
 }: {

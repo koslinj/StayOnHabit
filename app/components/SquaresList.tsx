@@ -20,7 +20,7 @@ export default function SquaresList({ days, allDays, habit_id, first, user }: Pr
     })
     const maxDate = new Date(Math.max(...days.map(e => e.getTime())));
     const finalDates = datesToString(filtered, maxDate)
-
+    console.log(finalDates)
     return (
         <div className={`flex ${first ? 'items-start h-28' : 'items-center h-24'}`}>
             {filtered.map((value, index) => (
