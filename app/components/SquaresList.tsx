@@ -14,13 +14,14 @@ export default function SquaresList({ days, allDays, habit_id, first, user }: Pr
 
     const formatedDays = days.map(day => day.toString())
     const filtered: boolean[] = []
+    console.log(allDays)
     formatedDays.forEach(day => {
         const x = allDays.some(e => e.day.toString() === day && e.habit_id === habit_id)
         filtered.push(x)
     })
     const maxDate = new Date(Math.max(...days.map(e => e.getTime())));
     const finalDates = datesToString(filtered, maxDate)
-    console.log(finalDates)
+    console.log(filtered)
     return (
         <div className={`flex ${first ? 'items-start h-28' : 'items-center h-24'}`}>
             {filtered.map((value, index) => (
