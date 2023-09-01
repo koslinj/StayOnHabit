@@ -1,6 +1,6 @@
 'use client'
 import { useRouter } from "next/navigation"
-import { FormEvent, experimental_useOptimistic as useOptimistic } from "react"
+import { FormEvent } from "react"
 
 type Props = {
     day: string
@@ -11,12 +11,10 @@ type Props = {
 }
 
 export default function Square({ day, state, habit_id, first, user }: Props) {
-    const [optimisticState, setoptimisticState] = useOptimistic(state)
     const router = useRouter()
 
     async function handleRed(e: FormEvent) {
         e.preventDefault()
-        setoptimisticState(true)
         const res = await fetch('/api/days', {
             method: 'POST',
             headers: {
@@ -29,7 +27,6 @@ export default function Square({ day, state, habit_id, first, user }: Props) {
     }
     async function handleGreen(e: FormEvent) {
         e.preventDefault()
-        setoptimisticState(false)
         const res = await fetch('/api/days', {
             method: 'DELETE',
             headers: {
@@ -48,7 +45,7 @@ export default function Square({ day, state, habit_id, first, user }: Props) {
                 <p className="leading-5 text-lg font-semibold">{day.slice(-2)}</p>
             </div>
             }
-            {!optimisticState ?
+            {!state ?
                 <form onSubmit={handleRed}>
                     <button
                         className={`w-12 h-12 rounded-lg border-black border-2 mx-1.5 hover:scale-110 duration-100 bg-red-500 hover:bg-red-600`}
