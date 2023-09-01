@@ -13,14 +13,14 @@ type Props = {
 
 export default function Square({ day, state, habit_id, first }: Props) {
     const [optimisticState, setoptimisticState] = useOptimistic(state)
-    async function handleRed() {
-        setoptimisticState(true)
-        await addDay(habit_id, day)
-    }
-    async function handleGreen() {
-        setoptimisticState(false)
-        await deleteDay(habit_id, day)
-    }
+    // async function handleRed() {
+    //     setoptimisticState(true)
+    //     await addDay(habit_id, day)
+    // }
+    // async function handleGreen() {
+    //     setoptimisticState(false)
+    //     await deleteDay(habit_id, day)
+    // }
 
     return (
         <div className="flex flex-col justify-center items-center">
@@ -30,14 +30,20 @@ export default function Square({ day, state, habit_id, first }: Props) {
             </div>
             }
             {!optimisticState ?
-                <form action={handleRed}>
+                <form action={async () => {
+                    setoptimisticState(true)
+                    await addDay(habit_id, day)
+                }}>
                     <button
                         className={`w-12 h-12 rounded-lg border-black border-2 mx-1.5 hover:scale-110 duration-100 bg-red-500 hover:bg-red-600`}
                     >
                     </button>
                 </form>
                 :
-                <form action={handleGreen}>
+                <form action={async () => {
+                    setoptimisticState(false)
+                    await deleteDay(habit_id, day)
+                }}>
                     <button
                         className={`w-12 h-12 rounded-lg border-black border-2 mx-1.5 hover:scale-110 duration-100 bg-green-500 hover:bg-green-600`}
                     >
