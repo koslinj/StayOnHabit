@@ -7,9 +7,10 @@ type Props = {
     allDays: DaysRow[]
     habit_id: number
     first: boolean
+    user: string
 }
 
-export default function SquaresList({ days, allDays, habit_id, first }: Props) {
+export default function SquaresList({ days, allDays, habit_id, first, user }: Props) {
 
     const formatedDays = days.map(day => day.toString())
     const filtered: boolean[] = []
@@ -23,7 +24,7 @@ export default function SquaresList({ days, allDays, habit_id, first }: Props) {
     return (
         <div className={`flex ${first ? 'items-start h-28' : 'items-center h-24'}`}>
             {filtered.map((value, index) => (
-                <Square key={index} day={finalDates[index]} state={value} habit_id={habit_id} first={first} />
+                <Square key={index} day={finalDates[index]} state={value} habit_id={habit_id} first={first} user={user} />
             ))}
         </div>
     )

@@ -1,27 +1,43 @@
 'use client'
-import { addDay } from "@/lib/database/addDay"
-import { deleteDay } from "@/lib/database/deleteDay"
 import { useRouter } from "next/navigation"
-import { experimental_useOptimistic as useOptimistic } from "react"
+import { FormEvent, experimental_useOptimistic as useOptimistic } from "react"
 
 type Props = {
     day: string
     state: boolean
     habit_id: number
     first: boolean
+    user: string
 }
 
-export default function Square({ day, state, habit_id, first }: Props) {
+export default function Square({ day, state, habit_id, first, user }: Props) {
     const [optimisticState, setoptimisticState] = useOptimistic(state)
     const router = useRouter()
-    async function handleRed() {
+
+    async function handleRed(e: FormEvent) {
+        e.preventDefault()
         setoptimisticState(true)
-        await addDay(habit_id, day)
+        const res = await fetch('/api/days', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ habit_id, day, user })
+        })
+        console.log(await res.json())
         router.refresh()
     }
-    async function handleGreen() {
+    async function handleGreen(e: FormEvent) {
+        e.preventDefault()
         setoptimisticState(false)
-        await deleteDay(habit_id, day)
+        const res = await fetch('/api/days', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ habit_id, day, user })
+        })
+        console.log(await res.json())
         router.refresh()
     }
 
@@ -33,14 +49,14 @@ export default function Square({ day, state, habit_id, first }: Props) {
             </div>
             }
             {!optimisticState ?
-                <form action={handleRed}>
+                <form onSubmit={handleRed}>
                     <button
                         className={`w-12 h-12 rounded-lg border-black border-2 mx-1.5 hover:scale-110 duration-100 bg-red-500 hover:bg-red-600`}
                     >
                     </button>
                 </form>
                 :
-                <form action={handleGreen}>
+                <form onSubmit={handleGreen}>
                     <button
                         className={`w-12 h-12 rounded-lg border-black border-2 mx-1.5 hover:scale-110 duration-100 bg-green-500 hover:bg-green-600`}
                     >

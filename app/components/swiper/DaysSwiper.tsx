@@ -10,9 +10,10 @@ import { getPast60Days } from "@/lib/utils"
 type Props = {
     habits: Habit[]
     allDays: DaysRow[]
+    user: string
 }
 
-export default function DaysSwiper({ allDays, habits }: Props) {
+export default function DaysSwiper({ allDays, habits, user }: Props) {
     const days = getPast60Days()
     const outputDaysArray = []
     for (let i = 0; i < 15; i++) {
@@ -58,7 +59,7 @@ export default function DaysSwiper({ allDays, habits }: Props) {
                         <div className="flex flex-col justify-center items-center">
                             {habits.map((habit, i) => (
                                 <div key={i}>
-                                    <SquaresList days={item} allDays={allDays} habit_id={habit.habit_id} first={i === 0 ? true : false} />
+                                    <SquaresList days={item} allDays={allDays} habit_id={habit.habit_id} first={i === 0 ? true : false} user={user} />
                                     <p className="block md:hidden italic font-light text-black/70 -translate-y-5">{habit.name}</p>
                                 </div>
                             ))}

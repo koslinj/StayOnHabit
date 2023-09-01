@@ -4,7 +4,6 @@ import { FormEvent, useRef, useState } from "react"
 import submitImg from "@/public/submit.png"
 import closeImg from "@/public/close.png"
 import { addHabit } from "@/lib/database/addHabit";
-import { addDay } from "@/lib/database/addDay";
 import { useRouter } from "next/navigation";
 
 export default function NewHabitButton() {
@@ -22,7 +21,13 @@ export default function NewHabitButton() {
         const res = await addHabit(name)
         const today = new Date()
         const todayString = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0')
-        await addDay(res.habit_id, todayString)
+        await fetch('/api/days', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ habit_id: res.habit_id, day: todayString })
+        })
         router.refresh()
         closeModal()
     };

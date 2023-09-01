@@ -9,8 +9,9 @@ import Link from "next/link";
 
 export default async function Dashboard() {
     const session = await getServerSession(options)
+    const user_id = session?.user?.email as string
 
-    const habitsData = await getAllHabitsForUser(session?.user?.email as string)
+    const habitsData = await getAllHabitsForUser(user_id)
     if (!habitsData) {
         throw new Error('fetching habits failed!')
     }
@@ -20,9 +21,9 @@ export default async function Dashboard() {
     if (!usersData) {
         throw new Error('fetching users failed!')
     }
-    const users = usersData
+    const users = usersData.filter(item => item !== user_id)
 
-    const allDaysData = await getAllDays(session?.user?.email as string)
+    const allDaysData = await getAllDays(user_id)
     if (!allDaysData) {
         throw new Error('fetching all days failed!')
     }
@@ -39,7 +40,7 @@ export default async function Dashboard() {
         <main className="bg-orange-300 p-4">
             <h1 className="text-2xl italic text-center text-black/70">My</h1>
             <h1 className="text-3xl font-semibold text-center">Dashboard</h1>
-            <DaysSwiper allDays={allDays} habits={uniqueHabits} />
+            <DaysSwiper allDays={allDays} habits={uniqueHabits} user={user_id} />
             <NewHabitButton />
             <div className="flex flex-col items-center text-xl">
                 <h2 className="text-2xl font-semibold italic mb-2">Other users dashboards: </h2>

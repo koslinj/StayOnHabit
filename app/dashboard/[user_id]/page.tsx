@@ -36,7 +36,7 @@ export default async function Dashboard({ params }: Props) {
         <main className="bg-orange-300 p-4">
             <h1 className="text-2xl italic text-center text-black/70">{user_id}</h1>
             <h1 className="text-3xl font-semibold text-center">Dashboard</h1>
-            <DaysSwiper allDays={allDays} habits={uniqueHabits} />
+            <DaysSwiper allDays={allDays} habits={uniqueHabits} user={user_id} />
             <Link href={'/dashboard'}>
                 <div className="w-40 group bg-white flex items-center justify-between mt-4 hover:-rotate-6 duration-200 p-2 rounded-xl border-black border-2">
                     <h2 className="text-xl italic font-bold">
