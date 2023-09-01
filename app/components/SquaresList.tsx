@@ -15,6 +15,7 @@ export default function SquaresList({ days, allDays, habit_id, first, user }: Pr
     const formatedDays = days.map(day => day.toString())
     const filtered: boolean[] = []
     console.log(allDays)
+    console.log(formatedDays)
     formatedDays.forEach(day => {
         const x = allDays.some(e => e.day.toString() === day && e.habit_id === habit_id)
         filtered.push(x)
