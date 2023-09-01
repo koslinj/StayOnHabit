@@ -32,14 +32,14 @@ export default function Square({ day, state, habit_id, first }: Props) {
             {!optimisticState ?
                 <form action={handleRed}>
                     <button
-                        className={`w-12 h-12 mx-1.5 hover:scale-110 duration-100 bg-red-500 hover:bg-red-600`}
+                        className={`w-12 h-12 rounded-lg border-black border-2 mx-1.5 hover:scale-110 duration-100 bg-red-500 hover:bg-red-600`}
                     >
                     </button>
                 </form>
                 :
                 <form action={handleGreen}>
                     <button
-                        className={`w-12 h-12 mx-1.5 hover:scale-110 duration-100 bg-green-500 hover:bg-green-600`}
+                        className={`w-12 h-12 rounded-lg border-black border-2 mx-1.5 hover:scale-110 duration-100 bg-green-500 hover:bg-green-600`}
                     >
                     </button>
                 </form>

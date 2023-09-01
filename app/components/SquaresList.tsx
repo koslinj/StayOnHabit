@@ -21,7 +21,7 @@ export default function SquaresList({ days, allDays, habit_id, first }: Props) {
     const finalDates = datesToString(filtered, maxDate)
 
     return (
-        <div className={`flex h-24 ${first ? 'items-start' : 'items-center'}`}>
+        <div className={`flex ${first ? 'items-start h-28' : 'items-center h-24'}`}>
             {filtered.map((value, index) => (
                 <Square key={index} day={finalDates[index]} state={value} habit_id={habit_id} first={first} />
             ))}
