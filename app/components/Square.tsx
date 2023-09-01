@@ -1,6 +1,6 @@
 'use client'
 import { useRouter } from "next/navigation"
-import { FormEvent } from "react"
+import { FormEvent, useEffect } from "react"
 
 type Props = {
     day: string
@@ -12,6 +12,9 @@ type Props = {
 
 export default function Square({ day, state, habit_id, first, user }: Props) {
     const router = useRouter()
+    useEffect(() => {
+
+    },[state])
 
     async function handleRed(e: FormEvent) {
         e.preventDefault()
