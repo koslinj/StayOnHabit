@@ -38,10 +38,10 @@ export default function NewHabitButton() {
 
     return (
         <>
-            <div className="flex justify-start items-center">
+            <div className="flex justify-center mb-8 items-center">
                 <button
                     onClick={openModal}
-                    className="bg-gradient-to-b from-orange-400 to-orange-600 p-3 rounded-2xl text-xl flex justify-center items-center font-semibold italic"
+                    className="bg-gradient-to-b from-orange-400 to-orange-600 p-3 border-2 border-black rounded-2xl text-xl flex justify-center items-center font-semibold italic hover:scale-110 duration-200"
                 >
                     New Habit
                 </button>

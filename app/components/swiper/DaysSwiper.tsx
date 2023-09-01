@@ -57,10 +57,10 @@ export default function DaysSwiper({ allDays, habits }: Props) {
                     <SwiperSlide key={index} >
                         <div className="flex flex-col justify-center items-center">
                             {habits.map((habit, i) => (
-                                <>
-                                    <SquaresList key={i} days={item} allDays={allDays} habit_id={habit.habit_id} first={i===0 ? true : false} />
+                                <div key={i}>
+                                    <SquaresList days={item} allDays={allDays} habit_id={habit.habit_id} first={i === 0 ? true : false} />
                                     <p className="block md:hidden italic font-light text-black/70 -translate-y-5">{habit.name}</p>
-                                </>
+                                </div>
                             ))}
                         </div>
                     </SwiperSlide>
