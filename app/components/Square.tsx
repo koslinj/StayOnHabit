@@ -30,20 +30,14 @@ export default function Square({ day, state, habit_id, first }: Props) {
             </div>
             }
             {!optimisticState ?
-                <form action={async () => {
-                    setoptimisticState(true)
-                    await addDay(habit_id, day)
-                }}>
+                <form action={() => addDay(habit_id, day)}>
                     <button
                         className={`w-12 h-12 rounded-lg border-black border-2 mx-1.5 hover:scale-110 duration-100 bg-red-500 hover:bg-red-600`}
                     >
                     </button>
                 </form>
                 :
-                <form action={async () => {
-                    setoptimisticState(false)
-                    await deleteDay(habit_id, day)
-                }}>
+                <form action={() => deleteDay(habit_id, day)}>
                     <button
                         className={`w-12 h-12 rounded-lg border-black border-2 mx-1.5 hover:scale-110 duration-100 bg-green-500 hover:bg-green-600`}
                     >
