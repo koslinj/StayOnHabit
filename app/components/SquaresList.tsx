@@ -12,12 +12,12 @@ type Props = {
 
 export default function SquaresList({ days, allDays, habit_id, first, user }: Props) {
 
-    const formatedDays = days.map(day => day.toString())
+    const formatedDays = days.map(day => new Date(day.setHours(0,0,0,0)).toString())
     const filtered: boolean[] = []
     console.log(allDays)
     console.log(formatedDays)
     formatedDays.forEach(day => {
-        const x = allDays.some(e => e.day.toString() === day && e.habit_id === habit_id)
+        const x = allDays.some(e => new Date(e.day.setHours(0,0,0,0)).toString() === day && e.habit_id === habit_id)
         filtered.push(x)
     })
     const maxDate = new Date(Math.max(...days.map(e => e.getTime())));
