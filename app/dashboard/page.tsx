@@ -41,7 +41,7 @@ export default async function Dashboard() {
             <h1 className="text-2xl italic text-center text-black/70">My</h1>
             <h1 className="text-3xl font-semibold text-center">Dashboard</h1>
             <DaysSwiper allDays={allDays} habits={uniqueHabits} user={user_id} />
-            <NewHabitButton />
+            <NewHabitButton user={user_id} />
             <div className="flex flex-col items-center text-xl">
                 <h2 className="text-2xl font-semibold italic mb-2">Other users dashboards: </h2>
                 {users.map((item, index) => (

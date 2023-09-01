@@ -6,7 +6,11 @@ import closeImg from "@/public/close.png"
 import { addHabit } from "@/lib/database/addHabit";
 import { useRouter } from "next/navigation";
 
-export default function NewHabitButton() {
+type Props = {
+    user: string
+}
+
+export default function NewHabitButton({ user }: Props) {
     const router = useRouter()
     const modalRef = useRef<HTMLDialogElement | null>(null)
     const [name, setName] = useState('');
@@ -15,18 +19,18 @@ export default function NewHabitButton() {
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault()
         console.log(name)
-        if(!name){
+        if (!name) {
             return setError('Name cannot be empty!')
         }
         const res = await addHabit(name)
         const today = new Date()
-        const todayString = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0')
+        const todayString = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0')
         await fetch('/api/days', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ habit_id: res.habit_id, day: todayString })
+            body: JSON.stringify({ habit_id: res.habit_id, day: todayString, user })
         })
         router.refresh()
         closeModal()
@@ -60,7 +64,7 @@ export default function NewHabitButton() {
                             className="mt-3 outline-none bg-gray-300 rounded-lg border-2 border-gray-300 focus:border-gray-600 p-1"
                             id="name"
                             value={name}
-                            onChange={(e) => {setName(e.target.value); setError('')}}
+                            onChange={(e) => { setName(e.target.value); setError('') }}
                             placeholder="Name of new habit..."
                         />
                         {error && <p className="text-red-800 font-semibold">{error}</p>}

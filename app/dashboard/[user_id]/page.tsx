@@ -37,14 +37,16 @@ export default async function Dashboard({ params }: Props) {
             <h1 className="text-2xl italic text-center text-black/70">{user_id}</h1>
             <h1 className="text-3xl font-semibold text-center">Dashboard</h1>
             <DaysSwiper allDays={allDays} habits={uniqueHabits} user={user_id} />
-            <Link href={'/dashboard'}>
-                <div className="w-40 group bg-white flex items-center justify-between mt-4 hover:-rotate-6 duration-200 p-2 rounded-xl border-black border-2">
-                    <h2 className="text-xl italic font-bold">
-                        Go back
-                    </h2>
-                    <Image src={backIcon} alt="go back arrow" width={50} height={50} className="group-hover:scale-125 duration-200"/>
-                </div>
-            </Link>
+            <div className="w-40">
+                <Link href={'/dashboard'}>
+                    <div className="group bg-white flex items-center justify-between mt-4 hover:-rotate-6 duration-200 p-2 rounded-xl border-black border-2">
+                        <h2 className="text-xl italic font-bold">
+                            Go back
+                        </h2>
+                        <Image src={backIcon} alt="go back arrow" width={50} height={50} className="group-hover:scale-125 duration-200" />
+                    </div>
+                </Link>
+            </div>
         </main>
     )
 }
