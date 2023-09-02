@@ -1,6 +1,7 @@
 'use client'
-import { useRouter } from "next/navigation"
-import { FormEvent, useEffect } from "react"
+import { addDay } from "@/lib/database/addDay"
+import { deleteDay } from "@/lib/database/deleteDay"
+import { experimental_useOptimistic as useOptimistic } from "react"
 
 type Props = {
     day: string
@@ -11,34 +12,16 @@ type Props = {
 }
 
 export default function Square({ day, state, habit_id, first, user }: Props) {
-    const router = useRouter()
-    useEffect(() => {
-
-    },[state])
-
-    async function handleRed(e: FormEvent) {
-        e.preventDefault()
-        const res = await fetch('/api/days', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ habit_id, day, user })
-        })
-        console.log(await res.json())
-        router.refresh()
+    const [optimisticState, setoptimisticState] = useOptimistic(state)
+    async function handleRed() {
+        setoptimisticState(true)
+        const res = await addDay(habit_id, day, user)
+        console.log(res)
     }
-    async function handleGreen(e: FormEvent) {
-        e.preventDefault()
-        const res = await fetch('/api/days', {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ habit_id, day, user })
-        })
-        console.log(await res.json())
-        router.refresh()
+    async function handleGreen() {
+        setoptimisticState(false)
+        const res = await deleteDay(habit_id, day, user)
+        console.log(res)
     }
 
     return (
@@ -48,15 +31,15 @@ export default function Square({ day, state, habit_id, first, user }: Props) {
                 <p className="leading-5 text-lg font-semibold">{day.slice(-2)}</p>
             </div>
             }
-            {!state ?
-                <form onSubmit={handleRed}>
+            {!optimisticState ?
+                <form action={handleRed}>
                     <button
                         className={`w-12 h-12 rounded-lg border-black border-2 mx-1.5 hover:scale-110 duration-100 bg-red-500 hover:bg-red-600`}
                     >
                     </button>
                 </form>
                 :
-                <form onSubmit={handleGreen}>
+                <form action={handleGreen}>
                     <button
                         className={`w-12 h-12 rounded-lg border-black border-2 mx-1.5 hover:scale-110 duration-100 bg-green-500 hover:bg-green-600`}
                     >
