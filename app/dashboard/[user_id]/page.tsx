@@ -33,20 +33,23 @@ export default async function Dashboard({ params }: Props) {
     })
 
     return (
-        <main className="bg-orange-300 p-4">
-            <h1 className="text-2xl italic text-center text-black/70">{user_id}</h1>
-            <h1 className="text-3xl font-semibold text-center">Dashboard</h1>
-            <DaysSwiper allDays={allDays} habits={uniqueHabits} user={user_id} />
-            <div className="w-40">
-                <Link href={'/dashboard'}>
-                    <div className="group bg-white flex items-center justify-between mt-4 hover:-rotate-6 duration-200 p-2 rounded-xl border-black border-2">
-                        <h2 className="text-xl italic font-bold">
-                            Go back
-                        </h2>
-                        <Image src={backIcon} alt="go back arrow" width={50} height={50} className="group-hover:scale-125 duration-200" />
-                    </div>
-                </Link>
-            </div>
-        </main>
+        <div>
+            <h1 className="text-center p-4 lg:p-10 font-extrabold italic text-transparent text-4xl tracking-wider lg:text-5xl bg-clip-text bg-gradient-to-r from-yellow-400 to-red-600">Stay On Habit</h1>
+            <main className="bg-orange-300 rounded-2xl p-4">
+                <h1 className="text-2xl italic text-center text-black/70">{user_id} Dashboard</h1>
+                <DaysSwiper allDays={allDays} habits={uniqueHabits} user={user_id} />
+                <div className="w-40">
+                    <Link href={'/dashboard'}>
+                        <div className="group bg-white flex items-center justify-between mt-4 hover:-rotate-6 duration-200 p-2 rounded-xl border-black border-2">
+                            <h2 className="text-xl italic font-bold">
+                                Go back
+                            </h2>
+                            <Image src={backIcon} alt="go back arrow" width={50} height={50} className="group-hover:scale-125 duration-200" />
+                        </div>
+                    </Link>
+                </div>
+            </main>
+        </div>
+
     )
 }

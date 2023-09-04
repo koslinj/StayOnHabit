@@ -37,19 +37,21 @@ export default async function Dashboard() {
     })
 
     return (
-        <main className="bg-orange-300 p-4">
-            <h1 className="text-2xl italic text-center text-black/70">My</h1>
-            <h1 className="text-3xl font-semibold text-center">Dashboard</h1>
-            <DaysSwiper allDays={allDays} habits={uniqueHabits} user={user_id} />
-            <NewHabitButton user={user_id} />
-            <div className="flex flex-col items-center text-xl">
-                <h2 className="text-2xl font-semibold italic mb-2">Other users dashboards: </h2>
-                {users.map((item, index) => (
-                    <Link key={index} href={'/dashboard/' + item}>
-                        <p className="hover:underline hover:font-semibold duration-200 m-2">{item}</p>
-                    </Link>
-                ))}
-            </div>
-        </main>
+        <div>
+            <h1 className="text-center p-4 lg:p-10 font-extrabold italic text-transparent text-4xl tracking-wider lg:text-5xl bg-clip-text bg-gradient-to-r from-yellow-400 to-red-600">Stay On Habit</h1>
+            <main className="bg-orange-300 rounded-2xl p-4">
+                <h1 className="text-2xl italic text-center text-black/70">My Dashboard</h1>
+                <DaysSwiper allDays={allDays} habits={uniqueHabits} user={user_id} />
+                <NewHabitButton user={user_id} />
+                <div className="flex flex-col items-center text-xl">
+                    <h2 className="text-2xl font-semibold italic mb-2">Other users dashboards: </h2>
+                    {users.map((item, index) => (
+                        <Link key={index} href={'/dashboard/' + item}>
+                            <p className="hover:underline hover:font-semibold duration-200 m-2">{item}</p>
+                        </Link>
+                    ))}
+                </div>
+            </main>
+        </div>
     )
 }
