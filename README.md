@@ -1,5 +1,7 @@
 # StayOnHabit
-[Official Website]([https://nextjs.org/](https://stay-on-habit.vercel.app/))
+**Official Website:**
+[stay-on-habit.vercel.app](https://stay-on-habit.vercel.app/)
+
 StayOnHabit is a habit tracking web application built with modern web technologies such as Next.js, NextAuth.js, TypeScript, Tailwind CSS, and PostgreSQL, hosted on Vercel. This app is designed to help you stay accountable and motivated on your journey towards building positive daily habits.
 
 ## How it looks like
